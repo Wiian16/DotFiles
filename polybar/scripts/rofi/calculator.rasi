@@ -1,0 +1,45 @@
+@import "~/.config/polybar/scripts/rofi/colors.rasi"
+
+* {
+    background-color:       @bg;
+    text-color:             @fg;
+	font:				 	"Iosevka Nerd Font 32";
+    border-radius: 20px;
+}
+
+window {
+    width:      			50%;
+    padding:    			10px;
+    border:					0px 0px 1px 0px;
+    border-radius:          20px;
+    border-color:           @se;
+    location:               center;
+    y-offset:               -1em;
+}
+
+textbox-prompt-colon {
+	padding: 						0px;
+	background-color: 				@bga;
+	text-color: 					@ac;
+	expand: false;
+	str: "";
+	font:							"feather 24";
+	width:						40px;
+}
+
+entry {
+    expand: 				true;
+    text-color:				@ac;
+}
+
+inputbar {
+	children: 						[ textbox-prompt-colon, entry ];
+    background-color:               @bga;
+    text-color:                     @fg;
+    expand:                         false;
+	border:							0px 0px 1px 0px;
+    border-radius:                  0px;
+	border-color:					@se;
+    margin:                         0px;
+    padding:                        10px;
+}

@@ -1,0 +1,133 @@
+#!/usr/bin/env bash
+
+bspc config top_padding 0
+
+## General ---------------------------------------------------#
+
+## Bspwm config directory
+BSPDIR="$HOME/.config/bspwm"
+
+## Export bspwm/bin dir to PATH
+export PATH="${PATH}:$BSPDIR/scripts"
+
+## Run java applications without issues
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+## Current theme ---------------------------------------------#
+
+## Bspwm colors
+BSPWM_FBC='#bba5a8'
+BSPWM_NBC='#0b0e10'
+BSPWM_ABC='#738865'
+BSPWM_PFC='#986964'
+
+## Bspwm appearance
+BSPWM_BORDER='1'
+BSPWM_GAP='0'
+BSPWM_SRATIO='0.50'
+
+## Configurations --------------------------------------------#
+
+## Manager Workspaces
+workspaces() {
+	name=1
+	for monitor in `bspc query -M`; do
+		bspc monitor ${monitor} -n "$name" -d 'I' 'II' 'III' 'IV' 'V' 'VI' 'VII' 
+		let name++
+	done
+}
+workspaces
+
+## Apply bspwm configurations
+bspc config border_width "$BSPWM_BORDER"
+#bspc config window_gap "$BSPWM_GAP"
+bspc config split_ratio "$BSPWM_SRATIO"
+
+bspc config focused_border_color "$BSPWM_FBC"
+bspc config normal_border_color "$BSPWM_NBC"
+bspc config active_border_color "$BSPWM_ABC"
+bspc config presel_feedback_color "$BSPWM_PFC"
+
+bspc config borderless_monocle true
+bspc config gapless_monocle true
+bspc config paddingless_monocle true
+bspc config single_monocle false
+bspc config focus_follows_pointer true
+bspc config presel_feedback true
+bspc config pointer_motion_interval 5
+bspc config window_gap 0
+
+bspc config border_radius 15
+
+## Manage all the unmanaged windows remaining from a previous session.
+bspc wm --adopt-orphans
+
+
+# remove all rules
+bspc rule -r *:*
+
+## Always Floating Apps
+declare -a floating=(gnome-calculator alacritty-float Pcmanfm Thunar Onboard Yad 'Firefox:Places' \
+Viewnior feh Nm-connection-editor)
+for i in ${floating[@]}; do
+   bspc rule -a $i state=floating follow=on focus=on; done
+
+bspc rule -a Conky state=floating manage=off
+bspc rule -a stalonetray state=floating manage=off
+
+## Autostart -------------------------------------------------#
+
+# Kill if already running
+killall -9 xsettingsd sxhkd dunst ksuperkey xfce4-power-manager bspc polybar copyq picom
+
+# polkit agent
+if [[ ! `pidof xfce-polkit` ]]; then
+	/usr/lib/xfce-polkit/xfce-polkit &
+fi
+
+# Lauch keybindings daemon
+sxhkd &
+
+# Enable Super Keys For Menu
+ksuperkey -e 'Super_L=Alt_L|F1' &
+
+# Fix cursor
+xsetroot -cursor_name left_ptr
+
+# Restore wallpaper
+bash ~/.fehbg
+
+# Start CopyQ
+copyq &
+
+# Start Picom
+picom &
+
+#polybar &
+~/.config/polybar/launch.sh --forest &
+
+# Set Keymap
+xmodmap ~/.Xmodmap
+
+# Connect to Nordvpn
+if ! nordvpn status | grep -q "Connected"; then nordvpn c; fi
+
+# Sync Date Time
+# ntpd
+
+# Custom Alerts
+if ! pgrep -x customAlerts > /dev/null
+then
+    customAlerts &
+fi
+
+# Start Conky
+killall conky
+conky -c ~/.config/conky/Celaeno/Celaeno.conf &
+
+if xrandr | grep -q "DP-1-3-1 connected"; then
+    conky -c ~/.config/conky/Celaeno/CelaenoOmen.conf &
+fi
+
+# Start Dunst
+dunst &

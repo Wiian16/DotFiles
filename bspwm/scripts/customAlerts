@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Threshold for CPU usage
+THRESHOLD=80
+
+# Check every 5 seconds
+SLEEP_SEC=5
+
+while true; do
+    # Get the overall CPU usage
+    CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1}')
+
+    # Check if the CPU usage is above the threshold
+    if (( $(echo "$CPU_USAGE > $THRESHOLD" | bc -l) )); then
+        # Send a notification
+        notify-send "High CPU usage detected" "CPU usage is $CPU_USAGE%."
+    fi
+
+    # Sleep for a while
+    sleep $SLEEP_SEC
+done

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Open Terminal Here</name>
+	<submenu></submenu>
+	<unique-id>1690587328134343-1</unique-id>
+	<command>exo-open --working-directory %f --launch alacritty</command>
+	<description>Example for a custom action</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon></icon>
+	<name>Extract Here</name>
+	<submenu></submenu>
+	<unique-id>1690653665487044-1</unique-id>
+	<command>file-roller --extract-here %F</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>emblem-xapp-favorite</icon>
+	<name>Set as Theme</name>
+	<submenu></submenu>
+	<unique-id>1690979962137320-1</unique-id>
+	<command>/usr/local/bin/theme %f</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<image-files/>
+</action>
+<action>
+	<icon>org.gnome.FileRoller</icon>
+	<name>Create Archive (zip)</name>
+	<submenu></submenu>
+	<unique-id>1691617732686462-1</unique-id>
+	<command>zip -r %d/%n.zip %N</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+</actions>
