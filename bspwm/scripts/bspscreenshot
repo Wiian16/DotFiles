@@ -7,7 +7,7 @@
 # file
 time=`date +%Y-%m-%d-%H-%M-%S`
 geometry=`xrandr | grep 'current' | head -n1 | cut -d',' -f2 | tr -d '[:blank:],current'`
-dir="/home/samsterjam/Pictures/Screenshots"
+dir="$HOME/Pictures/Screenshots"
 file="Screenshot_${time}_${geometry}.png"
 
 # directory
