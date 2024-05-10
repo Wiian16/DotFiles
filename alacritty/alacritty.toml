@@ -1,4 +1,4 @@
-import = ["~/.config/alacritty/colors.toml", "~/.config/alacritty/fonts.toml"]
+import = ["~/.config/alacritty/colors.toml"]
 live_config_reload = true
 
 [cursor]
@@ -13,7 +13,7 @@ TERM = "alacritty"
 WINIT_X11_SCALE_FACTOR = "1.0"
 
 [font]
-size = 15
+size = 12
 
 [font.bold]
 family = "JetBrainsMono Nerd Font"
