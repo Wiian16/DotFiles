@@ -16,10 +16,10 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 ## Current theme ---------------------------------------------#
 
 ## Bspwm colors
-BSPWM_FBC='#afb8af'
-BSPWM_NBC='#0d1011'
-BSPWM_ABC='#9B9966'
-BSPWM_PFC='#6A905B'
+BSPWM_FBC='#bebbbd'
+BSPWM_NBC='#161215'
+BSPWM_ABC='#8A8371'
+BSPWM_PFC='#887673'
 
 ## Bspwm appearance
 BSPWM_BORDER='1'

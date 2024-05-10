@@ -1,0 +1,27 @@
+{
+  "wallpaper": "~/Pictures/Wallpapers/ZenWhiteFlower.jpg",
+  "alpha": "100",
+  "special": {
+    "background": "#161215",
+    "foreground": "#dfdfe0",
+    "cursor": "#dfdfe0"
+  },
+  "colors": {
+    "color0": "#161215",
+    "color1": "#887673",
+    "color2": "#8A8371",
+    "color3": "#948E8F",
+    "color4": "#A49B9B",
+    "color5": "#B2AEB0",
+    "color6": "#C2BCBD",
+    "color7": "#dfdfe0",
+    "color8": "#9c9c9c",
+    "color9": "#948380",
+    "color10": "#968f7f",
+    "color11": "#a09b9c",
+    "color12": "#b0a8a8",
+    "color13": "#bebbbd",
+    "color14": "#cec9ca",
+    "color15": "#ececec"
+  }
+}

@@ -1,0 +1,205 @@
+#!/bin/bash
+
+### GET/CREATE THEME USING PYWAL ###
+# Check if -i flag is provided
+if [[ -n $1 ]]; then
+    wal -c
+
+    # Call pywal with the provided image
+    wal -n -s -t -e -i $1
+
+    # Get the latest generated theme
+    latest_theme=$(ls -t ~/.cache/wal/schemes/ | head -n 1)
+
+    # Copy it to the home directory and rename it to .theme
+    cp ~/.cache/wal/schemes/$latest_theme ~/.theme
+
+    # Read the .theme file and lighten colors 9-15
+    for i in {9..15}; do
+        color=$(jq -r ".colors.color$i" ~/.theme)
+        lightened_color=$(pastel color $color | pastel lighten 0.05 | pastel format hex)
+        jq ".colors.color$i = \"$lightened_color\"" ~/.theme > temp && mv temp ~/.theme
+    done
+
+fi
+
+
+
+
+### SET WALLPAPER ###
+#livewal --stop
+#feh --no-fehbg --bg-fill $(jq -r '.wallpaper' ~/.theme)
+killall conky &
+feh --bg-fill $(jq -r '.wallpaper' ~/.theme)
+
+
+
+# Parse the .theme file and get the colors
+background=$(jq -r '.special.background' ~/.theme)
+foreground=$(jq -r '.special.foreground' ~/.theme)
+cursor=$(jq -r '.special.cursor' ~/.theme)
+color0=$(jq -r '.colors.color0' ~/.theme)
+color1=$(jq -r '.colors.color1' ~/.theme)
+color2=$(jq -r '.colors.color2' ~/.theme)
+color3=$(jq -r '.colors.color3' ~/.theme)
+color4=$(jq -r '.colors.color4' ~/.theme)
+color5=$(jq -r '.colors.color5' ~/.theme)
+color6=$(jq -r '.colors.color6' ~/.theme)
+color7=$(jq -r '.colors.color7' ~/.theme)
+color8=$(jq -r '.colors.color8' ~/.theme)
+color9=$(jq -r '.colors.color9' ~/.theme)
+color10=$(jq -r '.colors.color10' ~/.theme)
+color11=$(jq -r '.colors.color11' ~/.theme)
+color12=$(jq -r '.colors.color12' ~/.theme)
+color13=$(jq -r '.colors.color13' ~/.theme)
+color14=$(jq -r '.colors.color14' ~/.theme)
+color15=$(jq -r '.colors.color15' ~/.theme)
+
+
+
+### SET ALACRITTY THEME ###
+
+# Apply the colors to Alacritty's configuration file
+cat > $HOME/.config/alacritty/colors.toml << EOF
+[colors.bright]
+black = "${color8}"
+blue = "${color12}"
+cyan = "${color14}"
+green = "${color10}"
+magenta = "${color13}"
+red = "${color9}"
+white = "${color15}"
+yellow = "${color11}"
+
+[colors.normal]
+black = "${color0}"
+blue = "${color4}"
+cyan = "${color6}"
+green = "${color2}"
+magenta = "${color5}"
+red = "${color1}"
+white = "${color7}"
+yellow = "${color3}"
+
+[colors.primary]
+background = "${background}"
+foreground = "${foreground}"
+EOF
+
+
+
+### POLYBAR ###
+
+cat > $HOME/.config/polybar/colors.ini <<- EOF
+  [color]
+
+  background = #DD${background//#/}
+  foreground = ${foreground}
+  sep = $(echo ${background} | pastel lighten 0.05 | pastel format hex)
+
+  white = ${color7}
+  black = ${color0}
+  red = ${color1}
+  pink = ${color9}
+  purple = ${color5}
+  blue = ${color4}
+  cyan = ${color6}
+  teal = ${color10}
+  green = ${color2}
+  lime = ${color11}
+  yellow = ${color3}
+  amber = ${color12}
+  orange = ${color13}
+  brown = ${color14}
+  indigo = ${color8}
+  gray = ${color15}
+  blue-gray = $(echo ${color4} | pastel darken 0.05 | pastel format hex)
+EOF
+
+
+
+
+
+### ROFI ###
+
+cat > $HOME/.config/polybar/scripts/rofi/colors.rasi <<- EOF
+/* colors */
+
+* {
+  al:   #00000000;
+  bg:   ${background}90;
+  bga:  $(echo ${background} | pastel darken 0.05 | pastel format hex)90;
+  fg:   ${foreground}FF;
+  ac:   ${color1}FF;
+  se:   ${color2}FF;
+}
+EOF
+
+
+
+
+### BSPWM ###
+sed -i ~/.config/bspwm/bspwmrc \
+    -e "s/BSPWM_FBC=.*/BSPWM_FBC='${color13}'/g" \
+    -e "s/BSPWM_NBC=.*/BSPWM_NBC='${background}'/g" \
+    -e "s/BSPWM_ABC=.*/BSPWM_ABC='${color2}'/g" \
+    -e "s/BSPWM_PFC=.*/BSPWM_PFC='${color1}'/g"
+bspc wm -r
+
+
+
+
+
+
+### CONKY ###
+
+# Apply the colors to Conky's configuration file
+sed -i \
+    -e "s/default_color = '.*'/default_color = '${foreground}'/g" \
+    -e "s/default_outline_color = '.*'/default_outline_color = '${foreground}'/g" \
+    -e "s/default_shade_color = '.*'/default_shade_color = '${foreground}'/g" \
+    -e "s/color1 = '.*'/color1 = '${foreground}'/g" \
+    ~/.config/conky/Celaeno/Celaeno.conf
+
+# Refresh Conky
+killall conky
+conky -c ~/.config/conky/Celaeno/Celaeno.conf &
+
+
+
+# Change the color of the images used by Conky
+for file in /home/samsterjam/.config/conky/Celaeno/res/base_*.png; do
+    # Get the base name of the file
+    base_name=$(basename "$file" .png)
+
+    # Remove 'base_' from the base name
+    new_base_name="${base_name#base_}"
+
+    # Create a new file name for the modified image
+    new_file="/home/samsterjam/.config/conky/Celaeno/res/${new_base_name}_new.png"
+
+    # Use ImageMagick to change the color
+    convert "$file" -fuzz 61% -fill "$color1" -opaque "#e61844" "$new_file"
+done
+
+
+
+### DUNST ###
+
+# Apply the colors to Dunst's configuration file
+sed -i \
+    -e "s/background = \"#[a-fA-F0-9]\{8\}\"/background = \"${background}90\"/g" \
+    -e "s/foreground = \"#[a-fA-F0-9]\{6,8\}\"/foreground = \"${foreground}\"/g" \
+    -e "s/frame_color = \"#[a-fA-F0-9]\{6,8\}\"/frame_color = \"${color1}\"/g" \
+    ~/.config/dunst/dunstrc
+
+# Refresh dunst
+killall dunst
+
+# Send Notifaction
+sleep 1
+notify-send "New Theme!" "You just applied a new theme\!\nThis is what notifactions look like..."
+
+
+# Update Lockscreen
+# betterlockscreen -q -u $1 &
