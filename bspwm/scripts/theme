@@ -168,7 +168,7 @@ conky -c ~/.config/conky/Celaeno/Celaeno.conf &
 
 
 # Change the color of the images used by Conky
-for file in /home/samsterjam/.config/conky/Celaeno/res/base_*.png; do
+for file in $HOME/.config/conky/Celaeno/res/base_*.png; do
     # Get the base name of the file
     base_name=$(basename "$file" .png)
 
@@ -176,7 +176,7 @@ for file in /home/samsterjam/.config/conky/Celaeno/res/base_*.png; do
     new_base_name="${base_name#base_}"
 
     # Create a new file name for the modified image
-    new_file="/home/samsterjam/.config/conky/Celaeno/res/${new_base_name}_new.png"
+    new_file="$HOME/.config/conky/Celaeno/res/${new_base_name}_new.png"
 
     # Use ImageMagick to change the color
     convert "$file" -fuzz 61% -fill "$color1" -opaque "#e61844" "$new_file"
