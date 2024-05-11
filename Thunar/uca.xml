@@ -28,7 +28,7 @@
 	<name>Set as Theme</name>
 	<submenu></submenu>
 	<unique-id>1690979962137320-1</unique-id>
-	<command>/usr/local/bin/theme %f</command>
+	<command>$HOME/.config/bspwm/scripts/theme %f</command>
 	<description></description>
 	<range>*</range>
 	<patterns>*</patterns>

@@ -3,8 +3,9 @@
 * {
     background-color:       @bg;
     text-color:             @fg;
-	font:				 	"Iosevka Nerd Font 32";
+	font:				 	"Iosevka Nerd Font 18";
     border-radius: 20px;
+    padding:                2px;
 }
 
 window {
