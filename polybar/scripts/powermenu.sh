@@ -11,11 +11,11 @@ uptime=$(uptime -p | sed -e 's/up //g')
 rofi_command="rofi -no-config -theme $dir/powermenu.rasi"
 
 # Options
-shutdown=" Shutdown"
-reboot=" Restart"
-lock=" Lock"
-suspend=" Sleep"
-logout=" Logout"
+shutdown=" Shutdown"
+reboot=" Restart"
+lock=" Lock"
+suspend=" Sleep"
+logout=" Logout"
 
 # Confirmation
 confirm_exit() {
@@ -58,17 +58,13 @@ case $chosen in
         fi
         ;;
     $lock)
-		if [[ -f /usr/bin/betterlockscreen ]]; then
-			#betterlockscreen --lock
-			lock
-		fi
+			$HOME/.config/bspwm/scripts/lock
         ;;
     $suspend)
 		ans="yes"
 		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
 			mpc -q pause
 			amixer set Master mute
-			#betterlockscreen --suspend
 			lock && systemctl suspend
 		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
 			exit 0
