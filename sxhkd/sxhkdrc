@@ -25,6 +25,7 @@ super + x
 	~/.config/polybar/scripts/powermenu.sh &
 
 # Cheat Sheet
+super + q
 	feh --borderless --auto-zoom Pictures/BSPWMKeyboardCheatSheet.png
 
 ##---------- Applications ----------##
