@@ -14,17 +14,6 @@ super + shift + Return
 alt + F1
 	bspCustomLaunch
 
-# Rofi Run
-# alt + F2
-# 	rofi_runner
-
-# Random Theme
-super + t
-	theme "$(find ~/Pictures/Wallpapers/Favorites -type f -print0 | shuf -z -n 1 | xargs -0)"
-
-super + shift + t
-	newTheme &
-
 super + m
 	rofi -show calc -modi calc -no-show-match -no-sort -theme ~/.config/polybar/scripts/rofi/calculator.rasi
 
@@ -35,6 +24,8 @@ super + semicolon
 super + x
 	~/.config/polybar/scripts/powermenu.sh &
 
+# Cheat Sheet
+	feh --borderless --auto-zoom Pictures/BSPWMKeyboardCheatSheet.png
 
 ##---------- Applications ----------##
 
@@ -42,16 +33,15 @@ super + x
 super + shift + {w,e}
 	{firefox,geany}
 
-# Custom launch dolphin                                                                  --CUSTOMIZED
+# Launch File Manager
 super + e
 	thunar
-	#dolphin --geometry 800x600 && sleep 0.1 && bspc node -v 50%x50% -z 50%x50%
 
-# Custom Firefox
+# Launch Chrome
 super + backslash
 	google-chrome-stable -no-default-browser-check
 
-# Custom discord
+# Launch Discord
 super + d
 	discord
 
@@ -105,10 +95,6 @@ XF86Audio{Next,Prev,Play,Stop}
 control + shift + {plus, minus}
 	mpc volume {+10,-10}
 
-# Custom Sleep Lock
-#XF86Sleep
-#	betterlockscreen --lock
-
 
 ##---------- Bspwm ----------##
 
@@ -132,7 +118,7 @@ ctrl + shift + {q,r}
 super + Escape
 	pkill -USR1 -x sxhkd
 
-# Switch workspace                                                                  --CUSTOMIZED
+# Switch workspace
 super + ctrl + {Left,Right}
 	bspc desktop -f {prev.local,next.local}
 
@@ -152,11 +138,11 @@ super + {_,shift + }{Left,Down,Up,Right}
 super + alt + shift + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
-# Expanding windows                                                                  --CUSTOMIZED
+# Expanding windows
 #super + control + {Left,Right,Up,Down}
 #	bspc node -z {left -20 0,right 20 0,top 0 -20,bottom 0 20}
 	
-# Shrinking windows                                                                  --CUSTOMIZED
+# Shrinking windows
 #super + alt + {Left,Right,Up,Down}
 #	bspc node -z {left 20 0,right -20 0,top 0 20,bottom 0 -20}
 
@@ -168,7 +154,7 @@ super + {h,v,q}
 super + ctrl + {1-9}
 	bspc node -o 0.{1-9}
 
-# Lock                                                                            --CUSTOMIZED
+# Lock
 super + l
 	lock
 

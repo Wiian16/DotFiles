@@ -112,8 +112,6 @@ xmodmap ~/.Xmodmap
 # Connect to Nordvpn
 if ! nordvpn status | grep -q "Connected"; then nordvpn c; fi
 
-# Sync Date Time
-# ntpd
 
 # Custom Alerts
 if ! pgrep -x customAlerts > /dev/null
