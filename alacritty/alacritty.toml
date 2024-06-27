@@ -36,7 +36,7 @@ opacity = 0.8
 startup_mode = "Windowed"
 
 [window.dimensions]
-columns = 82
+columns = 85
 lines = 23
 
 [window.padding]

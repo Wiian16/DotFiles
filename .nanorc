@@ -1,0 +1,13 @@
+set tabsize 4
+
+set tabstospaces
+set autoindent
+set trimblanks
+set linenumbers
+
+set keycolor cyan
+set constantshow
+set numbercolor yellow
+set functioncolor cyan
+
+include /usr/share/nano/*.nanorc
