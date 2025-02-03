@@ -57,7 +57,7 @@ bspc config presel_feedback true
 bspc config pointer_motion_interval 5
 bspc config window_gap 0
 
-bspc config border_radius 15
+bspc config border_radius 0 
 
 ## Manage all the unmanaged windows remaining from a previous session.
 bspc wm --adopt-orphans
