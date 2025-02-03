@@ -14,7 +14,7 @@ super + shift + Return
 alt + F1
 	bspCustomLaunch
 
-super + m
+alt + space
 	rofi -show calc -modi calc -no-show-match -no-sort -theme ~/.config/polybar/scripts/rofi/calculator.rasi
 
 super + semicolon
@@ -35,7 +35,7 @@ super + shift + {w,e}
 	{firefox,geany}
 
 # Launch File Manager
-super + e
+super + shift + f
 	thunar
 
 # Launch Chrome
@@ -120,7 +120,7 @@ super + Escape
 	pkill -USR1 -x sxhkd
 
 # Switch workspace
-super + ctrl + {Left,Right}
+ctrl + alt + {Left,Right}
 	bspc desktop -f {prev.local,next.local}
 
 # Switch workspace or Send focused Node to another workspace
@@ -128,15 +128,15 @@ super + {_,shift + }{1-8}
 	bspc {desktop -f,node -d} '^{1-8}' '--follow'
 
 # Send focused Node to workspace directionally
-super + ctrl + shift + {Left,Right}
+ctrl + alt + shift + {Left,Right}
 	bspc node -d {prev,next} '--follow'
 
 # Change focus of the Node or Swap Nodes
 super + {_,shift + }{Left,Down,Up,Right}
 	bspc node -{f,s} {west,south,north,east}
 
-# Move floating windows
-super + alt + shift + {Left,Down,Up,Right}
+# Move floating window
+super + shift + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
 # Expanding windows
@@ -156,7 +156,7 @@ super + ctrl + {1-9}
 	bspc node -o 0.{1-9}
 
 # Lock
-super + l
+ctrl + alt + l
 	lock
 
 # Toggle Fullscreen
