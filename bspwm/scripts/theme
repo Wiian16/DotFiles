@@ -29,7 +29,6 @@ fi
 ### SET WALLPAPER ###
 #livewal --stop
 #feh --no-fehbg --bg-fill $(jq -r '.wallpaper' ~/.theme)
-killall conky &
 feh --bg-fill $(jq -r '.wallpaper' ~/.theme)
 
 
@@ -159,29 +158,6 @@ sed -i \
     -e "s/default_outline_color = '.*'/default_outline_color = '${foreground}'/g" \
     -e "s/default_shade_color = '.*'/default_shade_color = '${foreground}'/g" \
     -e "s/color1 = '.*'/color1 = '${foreground}'/g" \
-    ~/.config/conky/Celaeno/Celaeno.conf
-
-# Refresh Conky
-killall conky
-conky -c ~/.config/conky/Celaeno/Celaeno.conf &
-
-
-
-# Change the color of the images used by Conky
-for file in $HOME/.config/conky/Celaeno/res/base_*.png; do
-    # Get the base name of the file
-    base_name=$(basename "$file" .png)
-
-    # Remove 'base_' from the base name
-    new_base_name="${base_name#base_}"
-
-    # Create a new file name for the modified image
-    new_file="$HOME/.config/conky/Celaeno/res/${new_base_name}_new.png"
-
-    # Use ImageMagick to change the color
-    convert "$file" -fuzz 61% -fill "$color1" -opaque "#e61844" "$new_file"
-done
-
 
 
 ### DUNST ###
