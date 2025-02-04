@@ -72,13 +72,12 @@ Viewnior feh Nm-connection-editor)
 for i in ${floating[@]}; do
    bspc rule -a $i state=floating follow=on focus=on; done
 
-bspc rule -a Conky state=floating manage=off
 bspc rule -a stalonetray state=floating manage=off
 
 ## Autostart -------------------------------------------------#
 
 # Kill if already running
-killall -9 xsettingsd sxhkd dunst ksuperkey xfce4-power-manager bspc polybar copyq picom conky
+killall -9 xsettingsd sxhkd dunst ksuperkey xfce4-power-manager bspc polybar copyq picom
 
 # polkit agent
 if [[ ! `pidof xfce-polkit` ]]; then
@@ -118,9 +117,6 @@ if ! pgrep -x customAlerts > /dev/null
 then
     customAlerts &
 fi
-
-# Start Conky
-conky -c ~/.config/conky/Celaeno/Celaeno.conf &
 
 # Start Dunst
 dunst &

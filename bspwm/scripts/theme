@@ -146,20 +146,6 @@ sed -i ~/.config/bspwm/bspwmrc \
 bspc wm -r
 
 
-
-
-
-
-### CONKY ###
-
-# Apply the colors to Conky's configuration file
-sed -i \
-    -e "s/default_color = '.*'/default_color = '${foreground}'/g" \
-    -e "s/default_outline_color = '.*'/default_outline_color = '${foreground}'/g" \
-    -e "s/default_shade_color = '.*'/default_shade_color = '${foreground}'/g" \
-    -e "s/color1 = '.*'/color1 = '${foreground}'/g" \
-
-
 ### DUNST ###
 
 # Apply the colors to Dunst's configuration file
