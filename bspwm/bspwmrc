@@ -122,4 +122,4 @@ fi
 dunst &
 
 # Set Mouse Acceleration Profile
-xinput --set-prop "<device-name>" "libinput Accel Profile Enabled" 0, 1, 0 &
+disableMouseAccel &

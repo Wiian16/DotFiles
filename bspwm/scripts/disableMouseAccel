@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Find the touchpad device name dynamically
+device_name=$(xinput list --name-only | grep -i "touchpad")
+
+# If no touchpad is found, exit
+if [ -z "$device_name" ]; then
+    echo "No touchpad found."
+    exit 1
+fi
+
+# Find the property ID for "libinput Accel Profile Enabled"
+prop_id=$(xinput list-props "$device_name" | grep -i "Accel Profile Enabled (" | awk -F'(' '{print $2}' | awk -F')' '{print $1}' | head -n 1)
+
+# If the property ID is found, set it to flat (0, 1, 0)
+if [[ "$prop_id" =~ ^[0-9]+$ ]]; then
+    xinput --set-prop "$device_name" "$prop_id" 0 1 0
+    echo "Touchpad acceleration disabled."
+else
+    echo "Failed to find a valid acceleration property ID."
+    exit 1
+fi
+
