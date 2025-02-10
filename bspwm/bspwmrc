@@ -120,3 +120,6 @@ fi
 
 # Start Dunst
 dunst &
+
+# Set Mouse Acceleration Profile
+disableMouseAccel &
