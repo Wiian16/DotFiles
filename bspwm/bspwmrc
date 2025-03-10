@@ -32,7 +32,7 @@ BSPWM_SRATIO='0.50'
 workspaces() {
 	name=1
 	for monitor in `bspc query -M`; do
-		bspc monitor ${monitor} -n "$name" -d 'I' 'II' 'III' 'IV' 'V' 'VI' 'VII' 
+		bspc monitor ${monitor} -n "$name" -d 'I' 'II' 'III' 'IV' 'V' 'VI' 'VII' 'IIX'
 		let name++
 	done
 }
