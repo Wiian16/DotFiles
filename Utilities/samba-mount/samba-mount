@@ -1,0 +1,14 @@
+#!/bin/bash
+while true
+do
+    if ! smbclient -A /etc/smbcredentials //<your-server-ip/path/to/sahre> -c '' 
+    then
+    	umount -f -l /path/to/mount/point
+    else
+    	if [[ -z $(mount | grep /path/to/mount/point) ]]
+   	then
+ 	    mount /path/to/mount/point
+        fi
+    fi
+    sleep 15
+done

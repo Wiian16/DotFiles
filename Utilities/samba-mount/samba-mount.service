@@ -1,0 +1,16 @@
+[Unit]
+Description=Samba Mount
+Wants=network-online.target remote-fs-pre.target
+After=network-online.target remote-fs-pre.target
+Before=remote-fs.target
+Conflicts=unmount.target
+
+[Service]
+Type=simple
+ExecStart=/path/to/samba-mount
+#ExecStop=/usr/bin/umount -f -l /path/to/mount/point &> /dev/null
+ExecStop=/bin/bash -c 'umount -f -l /path/to/mount/point || fuser -km /path/to/mount/point'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
