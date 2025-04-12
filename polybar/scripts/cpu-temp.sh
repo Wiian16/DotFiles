@@ -25,6 +25,11 @@ calculate_average_top_cores() {
         sum=$((sum + temp))
         ((count++))
     done
+
+    if [ $count == 0 ]; then
+        echo "Sensors not found"
+    fi
+
     # Calculate the average
     average=$((sum / count))
 
