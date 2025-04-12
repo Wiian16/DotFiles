@@ -17,19 +17,20 @@ lock=" Lock"
 suspend=" Sleep"
 logout=" Logout"
 
-# Confirmation
-confirm_exit() {
-	rofi -dmenu\
-        -no-config\
-		-i\
-		-no-fixed-num-lines\
-		-p "Are You Sure? : "\
-		-theme $dir/confirm.rasi
+yes=""
+no=""
+
+# Confirmation CMD
+confirm_cmd() {
+	rofi -dmenu \
+		-p "Confirmation" \
+		-mesg "Are you Sure?" \
+		-theme "$dir/confirm.rasi"
 }
 
-# Message
-msg() {
-	rofi -no-config -theme "$dir/message.rasi" -e "Available Options  -  yes / y / no / n"
+# Ask for confirmation
+confirm_exit() {
+	echo -e "$yes\n$no" | confirm_cmd
 }
 
 # Variable passed to rofi
@@ -39,42 +40,36 @@ chosen="$(echo -e "$options" | $rofi_command -p "Uptime: $uptime" -dmenu -select
 case $chosen in
     $shutdown)
 		ans=$(confirm_exit &)
-		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
+        if [[ "$ans" == "$yes" ]]; then
 			systemctl poweroff
-		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
-			exit 0
         else
-			msg
+			exit
         fi
         ;;
     $reboot)
 		ans=$(confirm_exit &)
-		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
+        if [[ "$ans" == "$yes" ]]; then
 			systemctl reboot
-		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
-			exit 0
         else
-			msg
+			exit
         fi
         ;;
     $lock)
 			$HOME/.config/bspwm/scripts/lock
         ;;
     $suspend)
-		ans="yes"
-		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
+		ans=$(confirm_exit &)
+        if [[ "$ans" == "$yes" ]]; then
 			mpc -q pause
 			amixer set Master mute
 			lock && systemctl suspend
-		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
-			exit 0
         else
-			msg
+			exit
         fi
         ;;
     $logout)
 		ans=$(confirm_exit &)
-		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
+        if [[ "$ans" == "$yes" ]]; then
 			if [[ "$DESKTOP_SESSION" == "Openbox" ]]; then
 				openbox --exit
 			elif [[ "$DESKTOP_SESSION" == "bspwm" ]]; then
@@ -82,10 +77,8 @@ case $chosen in
 			elif [[ "$DESKTOP_SESSION" == "i3" ]]; then
 				i3-msg exit
 			fi
-		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
-			exit 0
         else
-			msg
+			exit
         fi
         ;;
 esac

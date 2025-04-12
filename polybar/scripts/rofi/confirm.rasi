@@ -5,20 +5,70 @@
 * {
     background-color:       @bg;
     text-color:             @fg;
-	font:				 	"Iosevka Nerd Font 42";
+    font:                   "Iosevka Nerd Font 24";
 }
 
 window {
-    width:      			2560px;
-    padding:    			1000px;
-    border:					0px 0px 1px 0px;
-    border-radius:          0px;
+    width:                  300px;
+    padding:                20px;
+    border:                 2px;
+    border-radius:          12px;
     border-color:           @se;
     location:               center;
     y-offset:               -2em;
 }
 
-entry {
-    expand: 				true;
-    text-color:				@ac;
+mainbox {
+    orientation:            vertical;
+    spacing:                10px;
 }
+
+message {
+    padding:                5px;
+    text-color:             @fg;
+    font:                   "Iosevka Nerd Font 20";
+}
+
+listview {
+    columns:                2;
+    lines:                  1;
+    spacing:                20px;
+    fixed-height:           true;
+    dynamic:                false;
+}
+
+element {
+    padding:                10px 20px;
+    border-radius:          8px;
+    background-color:       @bg;
+    text-color:             @fg;
+}
+
+element-text {
+    horizontal-align:       0.5;
+    vertical-align:         0.5;
+}
+
+element selected {
+    background-color:       @ac;
+    text-color:             @bg;
+}
+
+element-text selected {
+    background-color:       @ac;
+}
+
+prompt {
+    text-color: @fg;
+    background-color: transparent;
+    padding: 0px;
+}
+
+entry {
+    placeholder: "";
+    text-color: transparent;
+    background-color: transparent;
+    cursor: none;
+    expand: false;
+}
+
