@@ -73,7 +73,7 @@ ctrl + Print
 	bspscreenshot --win
 
 # Custom snap shot area
-ctrl + shift + s
+suer + Print
 	bspscreenshot --area
 
 # Brighness control
