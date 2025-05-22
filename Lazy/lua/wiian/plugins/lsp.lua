@@ -70,6 +70,8 @@ return {
                 end
             end
 
+            local util         = require("lspconfig/util")
+
             -- Single setup, with `handlers` table (v2 API)
             mlsp.setup {
                 ensure_installed = {
@@ -114,6 +116,32 @@ return {
                                 ["textDocument/signatureHelp"] = function() end,
                             },
                         }
+                    end,
+                    ["ts_ls"] = function()
+                        local lspconfig = require("lspconfig")
+
+                        -- 1) find your TS project root via tsconfig.json/jsconfig.json/package.json or .git
+                        local root_dir = util.root_pattern("tsconfig.json", "jsconfig.json", "package.json", ".git")
+
+                        -- 2) determine the project’s path on disk
+                        local project_root = root_dir(vim.fn.expand("%:p")) or vim.loop.cwd()
+
+                        -- 3) point tsserver at your local TS lib (if it exists)
+                        local tsdk = project_root .. "/node_modules/typescript/lib"
+                        if not vim.loop.fs_stat(tsdk) then
+                            tsdk = nil
+                        end
+
+                        lspconfig.ts_ls.setup({
+                            on_attach    = on_attach,
+                            capabilities = capabilities,
+                            -- leave `cmd = { "typescript-language-server", "--stdio" }` alone
+                            root_dir     = root_dir,
+                            settings     = {
+                                typescript = { tsdk = tsdk },
+                                javascript = { tsdk = tsdk },
+                            },
+                        })
                     end,
                 },
             }
