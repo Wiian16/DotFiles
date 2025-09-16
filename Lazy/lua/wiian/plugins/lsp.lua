@@ -115,7 +115,12 @@ return {
                     bufmap("n", "<F2>", vim.lsp.buf.rename)
                     bufmap("n", "<leader>ca", vim.lsp.buf.code_action)
                     bufmap("n", "<F4>", vim.lsp.buf.code_action)
-                    bufmap({ "n", "x" }, "<F3>", vim.lsp.buf.format)
+                    bufmap({ "n", "x" }, "<F3>", function()
+                        require("conform").format({
+                            async = true,
+                            lsp_fallback = true, -- fall back to LSP if no formatter configured
+                        })
+                    end)
 
                     -- optional: signature help
                     if client and client.server_capabilities.signatureHelpProvider then
@@ -124,15 +129,6 @@ return {
                             callback = vim.lsp.buf.signature_help,
                         })
                     end
-                end,
-            })
-
-            ------------------------------------------------------------------------------
-            -- Format on save
-            ------------------------------------------------------------------------------
-            vim.api.nvim_create_autocmd("BufWritePre", {
-                callback = function()
-                    vim.lsp.buf.format({ async = false })
                 end,
             })
         end,
@@ -173,6 +169,33 @@ return {
                     { name = "luasnip" },
                 },
             }
+        end,
+    },
+
+    ------------------------------------------------------------------------------
+    -- Formatter integration: Conform.nvim
+    ------------------------------------------------------------------------------
+    {
+        "stevearc/conform.nvim",
+        event = "BufWritePre",
+        config = function()
+            require("conform").setup({
+                formatters_by_ft = {
+                    lua = { "stylua" },
+                    python = { "yapf" },
+                    javascript = { "prettier" },
+                    typescript = { "prettier" },
+                    sh = { "shfmt" },
+                    -- fallback to LSP if nothing is configured
+                },
+                format_on_save = function(bufnr)
+                    -- Try conform first, then fallback to LSP
+                    return {
+                        lsp_fallback = true,
+                        timeout_ms = 1000,
+                    }
+                end,
+            })
         end,
     },
 }
