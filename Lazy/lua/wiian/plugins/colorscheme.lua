@@ -1,5 +1,5 @@
 -- return {
--- 	"nxstynate/onedarkpro.nvim", 
+-- 	"nxstynate/onedarkpro.nvim",
 -- 	priority = 1000,
 -- 	config = function()
 -- 		--load colorscheme
@@ -7,10 +7,38 @@
 -- 	end,
 -- }
 
+-- return {
+--     "navarasu/onedark.nvim",
+--     priority = 1000,
+--     config = function()
+--         vim.cmd([[colorscheme onedark]])
+--     end
+-- }
+
+-- return {
+-- 	"rebelot/kanagawa.nvim",
+-- 	priority = 1000,
+-- 	config = function()
+-- 		vim.cmd([[colorscheme kanagawa-dragon]])
+-- 	end,
+-- }
+--
+-- return {
+-- 	"folke/tokyonight.nvim",
+-- 	lazy = false,
+-- 	priority = 1000,
+-- 	opts = {},
+-- 	config = function()
+-- 		vim.cmd([[colorscheme tokyonight]])
+-- 	end,
+-- }
+
 return {
-    "navarasu/onedark.nvim",
-    priority = 1000,
-    config = function()
-        vim.cmd([[colorscheme onedark]])
-    end
+	"oxfist/night-owl.nvim",
+	lazy = false,
+	priority = 1000,
+	opts = {},
+	config = function()
+		vim.cmd([[colorscheme night-owl]])
+	end,
 }
